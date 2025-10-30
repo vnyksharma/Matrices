@@ -1,70 +1,176 @@
 #include <stdio.h>
+#include<string.h>
 
-int main() {
-    int rows, columns;
-    printf("Enter no of rows: ");
+void matrices_addtion(){
+    int n, rows, columns;
+
+    printf("Enter the number of matrices: ");
+    scanf("%d", &n);
+
+    printf("Enter the number of rows: ");
     scanf("%d", &rows);
-    printf("Enter no of columns: ");
+
+    printf("Enter the number of columns: ");
     scanf("%d", &columns);
 
-    int amatrix[rows][columns];
 
-    printf("-------------------------");
+    int matrices[n][rows][columns];
 
-    printf("\nEnter the Elements of the Matrix A: \n");
-    for (int i = 1; i <= rows; i++)
+    printf("\n\n");
+
+    for (int k = 0; k < n; k++)
     {
-        for (int j = 1; j <= columns; j++)
+        printf("Enter the elements of the Matrix %d: \n", k+1);
+
+        for (int i = 0; i < rows; i++)
         {
-            printf("Element[%d][%d]: ", i, j);
-            scanf("%d", &amatrix[i][j]);
+            for (int j = 0; j < columns; j++)
+            {
+                printf("Element(%d)(%d): ", i+1, j+1);
+                scanf("%d", &matrices[k][i][j]);
+            }
+              
         }
         
+    
     }
-    printf("The matrix A is: \n");
-    for (int i = 1; i <= rows; i++)
+    printf("\n\n");
+
+    for (int k = 0; k < n; k++)
     {
-        for (int j = 1; j <= columns; j++)
+        printf("Matrix %d: \n", k+1);
+        for (int i = 0; i < rows; i++)
         {
-            printf("%d ", amatrix[i][j]);
-        }
-        printf("\n");
+            for (int j = 0; j < columns; j++)
+            {
+                printf("%d ", matrices[k][i][j]);
+            }
+            printf("\n");
+        } 
     }
-    printf("-------------------------");
+    int result[rows][columns];
 
-   int bmatrix[rows][columns];
-
-    printf("\nEnter the Elements of the Matrix B: \n");
-    for (int i = 1; i <= rows; i++)
+    for (int i = 0; i < rows; i++)
     {
-        for (int j = 1; j <= columns; j++)
+        for (int j = 0; j < columns; j++)
         {
-            printf("Element[%d][%d]: ", i, j);
-            scanf("%d", &bmatrix[i][j]);
+            result[i][j] = 0;
         }
         
-    }
-    printf("The matrix B is: \n");
-    for (int i = 1; i <= rows; i++)
-    {
-        for (int j = 1; j <= columns; j++)
-        {
-            printf("%d ", bmatrix[i][j]);
-        }
-        printf("\n");
-    }
-    printf("-------------------------");
-
-    int cmatrix[rows][columns];
-    printf("\nMatrix A + Matrix B is: \n");
-    for (int i = 1; i <= rows; i++)
-    {
-        for (int j = 1; j <= columns; j++)
-        {
-            printf("%d ", amatrix[i][j] + bmatrix[i][j]);
-        }
-        printf("\n");
     }
     
+
+    for (int k = 0; k < n; k++)
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                result[i][j] = result[i][j]  + matrices[k][i][j];
+            }
+            
+        }
+        
+    }
+
+    printf("RESULTANT MATRIX: \n");
+        
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                printf("%d ", result[i][j]);
+            }
+            printf("\n");
+        } 
+
+}
+
+void matrices_subtraction() {
+    int n, rows, columns;
+
+    printf("Enter the number of matrices: ");
+    scanf("%d", &n);
+
+    printf("Enter the number of rows: ");
+    scanf("%d", &rows);
+
+    printf("Enter the number of columns: ");
+    scanf("%d", &columns);
+
+    int matrices[n][rows][columns];
+
+    printf("\n\n");
+    
+    for (int k = 0; k < n; k++) {
+        printf("Enter the elements of Matrix %d: \n", k + 1);
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                printf("Element(%d)(%d): ", i + 1, j + 1);
+                scanf("%d", &matrices[k][i][j]);
+            }
+        }
+    }
+
+    printf("\n\n");
+
+    for (int k = 0; k < n; k++) {
+        printf("Matrix %d:\n", k + 1);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                printf("%d ", matrices[k][i][j]);
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+
+    int result[rows][columns];
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            result[i][j] = matrices[0][i][j];
+        }
+    }
+
+    for (int k = 1; k < n; k++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                result[i][j] -= matrices[k][i][j];
+            }
+        }
+    }
+
+    printf("RESULTANT MATRIX (After Subtraction):\n");
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            printf("%d ", result[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {   
+ 
+    char operation[20];
+    printf("This is a multi-matrix calculator.\n");
+    printf("Available operations: Addition and Subtraction.\n");
+    printf("Enter operation: ");
+    fgets(operation, sizeof(operation), stdin);
+
+    if (strcasecmp(operation, "addition\n") == 0)
+    {
+        matrices_addtion();
+    }
+    else if (strcasecmp(operation, "subtraction\n") == 0)
+    {
+        matrices_subtraction();
+    }
+    else 
+    {
+        printf("INVALID INPUT!");
+    }
+
     return 0;
 }
